@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Patatap Clone | by Emma Borghult</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="paper-full.js"></script>
-</head>
-<body>
+    <script type="text/paperscript" canvas="myCanvas">
+
+        var canvas = document.querySelector('canvas'),
+            context = canvas.getContext('2d');
     
-</body>
+        function drawStuff() {
+            for(var x = 0; x < 1000; x+= 100) {
+                for(var y = 0; y < 1000; y+= 100) {
+                    var circle = new Path.Circle(new Point (x, y), 10)
+                    circle.fillColor = 'red'
+                }
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            for(var x = 0; x < 1000; x+= 100) {
+                for(var y = 0; y < 1000; y+= 100) {
+                    var circle = new Path.Circle(new Point (x, y), 10)
+                    circle.fillColor = 'red'
+                }
+            }
+            drawStuff(); 
+        }
+        resizeCanvas();
+
+        window.addEventListener('resize', resizeCanvas, false);
+
+    </script>
+  </head>
+  <body>
+    <canvas id="myCanvas" resize></canvas>
+  </body>
 </html>
