@@ -9,33 +9,34 @@
     <script src="paper-full.js"></script>
     <script type="text/paperscript" canvas="myCanvas">
 
-        var canvas = document.querySelector('canvas'),
-            context = canvas.getContext('2d');
-    
-        function drawStuff() {
-            for(var x = 0; x < 1000; x+= 100) {
-                for(var y = 0; y < 1000; y+= 100) {
-                    var circle = new Path.Circle(new Point (x, y), 10)
-                    circle.fillColor = 'red'
-                }
-            }
+        var circles = [];
+
+        function onKeyDown(event) {
+            var maxPoint = new Point(view.size.width, view.size.height);
+            var randomPoint = Point.random();
+            var point = maxPoint * randomPoint;
+            console.log('The ' + event.key + ' was pressed');
+            var newCircle = new Path.Circle(point, 500);
+            newCircle.fillColor = "red";
+            circles.push(newCircle);
         }
+
+        function onFrame(event) {
+            for (var i = 0; i < circles.length; i += 1){
+                circles[i].fillColor.hue += 1;
+                circles[i].scale(.9);
+            };
+        }
+
+        var canvas = document.querySelector('canvas'),
+        context = canvas.getContext('2d');
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
-            for(var x = 0; x < 1000; x+= 100) {
-                for(var y = 0; y < 1000; y+= 100) {
-                    var circle = new Path.Circle(new Point (x, y), 10)
-                    circle.fillColor = 'red'
-                }
-            }
-            drawStuff(); 
         }
-        resizeCanvas();
 
-        window.addEventListener('resize', resizeCanvas, false);
+        window.addEventListener('resize', resizeCanvas);
 
     </script>
   </head>
